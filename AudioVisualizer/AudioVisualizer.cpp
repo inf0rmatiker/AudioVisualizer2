@@ -7,7 +7,12 @@
 #include "Audioclient.h" // for Windows Audio Session API (WASAPI)
 #include "Audiopolicy.h" // for Windows Audio Session API (WASAPI)
 
+#include <iostream>
+#include <string>
+
 #define MAX_LOADSTRING 100
+
+using namespace std;
 
 // Global Variables:
 HINSTANCE hInst;                                // current instance
@@ -20,6 +25,22 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
+/*
+	FUNCTION: wWinMain()
+
+	PURPOSE: Entry-point function.
+
+	PARAMS: 
+		hInstance: Something called a "handle to an instance" or "handle to a module." 
+			The operating system uses this value to identify the executable (EXE) when 
+			it is loaded in memory.
+		hPrevInstance: Has no meaning. It was used in 16-bit Windows, but is now always zero.
+		pCmdLine: Contains the command-line arguments as a Unicode string.
+		nCmdShow: A flag that says whether the main application window will be minimized, 
+			maximized, or shown normally.
+
+	RETURN: int value, not used by OS.
+*/
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
@@ -29,6 +50,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     // TODO: Place code here.
+
 
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -48,6 +70,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // Main message loop:
     while (GetMessage(&msg, nullptr, 0, 0))
     {
+
         if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
         {
             TranslateMessage(&msg);
@@ -100,6 +123,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // Store instance handle in our global variable
 
+   /* Creates the Window object. hWnd is the window handle. */
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
@@ -114,16 +138,15 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    return TRUE;
 }
 
-//
-//  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
-//
-//  PURPOSE: Processes messages for the main window.
-//
-//  WM_COMMAND  - process the application menu
-//  WM_PAINT    - Paint the main window
-//  WM_DESTROY  - post a quit message and return
-//
-//
+/*
+	FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
+
+	PURPOSE: Processes messages for the main window.
+
+	WM_COMMAND  - process the application menu
+	WM_PAINT    - Paint the main window
+	WM_DESTROY  - post a quit message and return
+*/
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
