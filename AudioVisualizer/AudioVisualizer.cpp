@@ -141,11 +141,22 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 /*
 	FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
 
+	PARAMS:
+		hWnd: Handle to the window.
+		message: Message code (for example, the WM_SIZE message indicates the window was resized.)
+		wParam, lParam: Contain additional data that pertains to the message. 
+			The exact meaning depends on the message code.
+
 	PURPOSE: Processes messages for the main window.
 
 	WM_COMMAND  - process the application menu
 	WM_PAINT    - Paint the main window
 	WM_DESTROY  - post a quit message and return
+
+	CALLING CONVENTION: CALLBACK
+
+	RETURN VAL: LRESULT is an integer value that your program returns to Windows. 
+		It contains your program's response to a particular message.
 */
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -173,9 +184,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: Add any drawing code that uses hdc here...
+
+			// fills the update region with a single color, 
+			// using the system-defined window background color (COLOR_WINDOW).
+			FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
+
             EndPaint(hWnd, &ps);
         }
         break;
+	case WM_CLOSE:
+		if (MessageBox(hWnd, L"Really quit?", L"AudioVisualizer", MB_OKCANCEL) == IDOK)
+		{
+			DestroyWindow(hWnd);
+		}
+		// Else: User canceled. Do nothing.
+		break;
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
