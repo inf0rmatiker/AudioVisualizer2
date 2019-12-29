@@ -3,6 +3,9 @@
 
 #include "framework.h"
 #include "AudioVisualizer.h"
+#include "Mmdeviceapi.h" // for MMDevice API
+#include "Audioclient.h" // for Windows Audio Session API (WASAPI)
+#include "Audiopolicy.h" // for Windows Audio Session API (WASAPI)
 
 #define MAX_LOADSTRING 100
 
